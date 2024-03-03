@@ -103,7 +103,7 @@ CREATE VIEW Registration3 AS
             SELECT event, EXTRACT(YEAR FROM edate) AS event_year
             FROM Eventschedule
             GROUP BY event, EXTRACT(YEAR FROM edate)
-        ) AS RR4 ON RR2.id = RR4.event -- I cannot join this
+        ) AS RR4 ON RR2.id = RR4.event
         GROUP BY RR3.library, RR4.event_year
     ) AS R5 ON R.branch_code = R5.branch_code AND R.event_year = R5.event_year; -- TODO: fix the registration calcaultion
 
