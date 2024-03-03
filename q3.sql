@@ -194,13 +194,24 @@ CREATE VIEW categories AS
             WHEN a.attendance = 'low' AND b.checkouts = 'low' THEN 'inactive'::patronCategory
             WHEN a.attendance = 'low' AND b.checkouts = 'high' THEN 'reader'::patronCategory
             WHEN a.attendance = 'high' AND b.checkouts = 'low' THEN 'doer'::patronCategory
-            WHEN a.attendance = 'high' AND b.checkouts = 'low' THEN 'keener'::patronCategory
+            WHEN a.attendance = 'high' AND b.checkouts = 'high' THEN 'keener'::patronCategory
+            ELSE NULL
         END AS category
-    FROM (
-        ((SELECT * FROM lowEventsUsage) UNION (SELECT * FROM highEventsUsage)) a
-        JOIN
-        ((SELECT * FROM lowCheckoutUsage) UNION (SELECT * FROM highCheckoutUsage)) b
+    FROM ((
+            SELECT * FROM lowEventsUsage
+            UNION
+            SELECT * FROM highEventsUsage
+        ) a 
+        JOIN (
+            SELECT * FROM lowCheckoutUsage
+            UNION
+            SELECT * FROM highCheckoutUsage
+        ) b
         ON a.patron = b.patron
+        -- ((SELECT * FROM lowEventsUsage) UNION (SELECT * FROM highEventsUsage)) a
+        -- JOIN
+        -- ((SELECT * FROM lowCheckoutUsage) UNION (SELECT * FROM highCheckoutUsage)) b
+        -- ON a.patron = b.patron
     );
 
 CREATE VIEW allPatrons AS
