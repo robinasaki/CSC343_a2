@@ -18,7 +18,7 @@ CREATE TABLE q5 (
 -- If you do not define any views, you can delete the lines about views.
 DROP VIEW IF EXISTS Patron_ids CASCADE;
 DROP VIEW IF EXISTS PatronCheckoutDate0 CASCADE;
-DROP VIEW IF EXISTS AllPossible2022 CASCADE;
+DROP VIEW IF EXISTS PatronIdMonths CASCADE;
 DROP VIEW IF EXISTS Missing2022 CASCADE;
 DROP VIEW IF EXISTS ActiveEveryMonth2022 CASCADE;
 DROP VIEW IF EXISTS ActiveAtLeast5Months2023 CASCADE;
@@ -46,8 +46,8 @@ CREATE VIEW PatronCheckoutDate0 AS
     -- id (checkout_id), patron (patron_id), copy (holding_id), checkout_time
     FROM Checkout R1;
 
--- Active every month in 2022
-CREATE VIEW AllPossible2022 AS
+-- Permutation of patron_ids and months
+CREATE VIEW PatronIdMonths AS
     SELECT *
     FROM Patron_ids
     CROSS JOIN (
@@ -65,13 +65,14 @@ CREATE VIEW AllPossible2022 AS
         UNION ALL SELECT 12
     ) AS Months;
 
+-- At least one missing month in 2022
 CREATE VIEW Missing2022 AS
     SELECT * 
     FROM (
         (
-            SELECT * FROM AllPossible2022
+            SELECT * FROM PatronIdMonths -- all possible
         ) EXCEPT ALL (
-            SELECT patron_id, EXTRACT(MONTH FROM checkout_date)
+            SELECT patron_id, EXTRACT(MONTH FROM checkout_date) -- 2022 actual
             FROM PatronCheckoutDate0
             WHERE EXTRACT(YEAR FROM checkout_date) = 2022
         )
@@ -82,10 +83,10 @@ CREATE VIEW ActiveEveryMonth2022 AS -- [key0]
     SELECT patron_id
     FROM (
         (
-            SELECT card_number AS patron_id
+            SELECT card_number AS patron_id -- all patrons
             FROM Patron
         ) EXCEPT ALL (
-            SELECT patron_id FROM Missing2022
+            SELECT patron_id FROM Missing2022 -- missing patrons
         )
     ) AS R3;
 
@@ -108,7 +109,7 @@ CREATE VIEW Missing2023 AS
     SELECT DISTINCT patron_id
     FROM (
         (
-            SELECT * FROM AllPossible2022
+            SELECT * FROM PatronIdMonths
         ) EXCEPT ALL (
             SELECT patron_id, EXTRACT(MONTH FROM checkout_date)
             FROM PatronCheckoutDate0
