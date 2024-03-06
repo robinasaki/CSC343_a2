@@ -1,0 +1,196 @@
+id,library,name,rtype,max_capacity
+1,AG   ,Auditorium  ,auditorium,100
+2,ACD  ,Auditorium,auditorium,90
+3,ACD  ,Meeting room,meeting,25
+4,AB   ,Auditorium,auditorium,100
+5,AN   ,Auditorium,auditorium,60
+6,AN   ,Meeting room,meeting,20
+7,BF   ,Auditorium,auditorium,120
+8,BF   ,Meeting room A,meeting,40
+9,BE   ,Meeting room,meeting,50
+10,BD   ,Auditorium,auditorium,167
+11,BC   ,Auditorium ,auditorium,70
+12,BL   ,Auditorium  ,auditorium,70
+13,BR   ,Meeting room,meeting,50
+14,BB   ,Meeting room,meeting,55
+15,CED  ,Auditorium,auditorium,60
+16,CE   ,Auditorium,auditorium,85
+17,CC   ,Meeting room,meeting,25
+18,CS   ,Auditorium,auditorium,55
+19,CS   ,Meeting room,meeting,20
+20,DA   ,Meeting room,meeting,65
+21,DT   ,Meeting room,meeting,40
+22,DR   ,Meeting room,meeting,20
+23,DP   ,Meeting room,meeting,70
+24,DP   ,Main Fl. Mtg Rm,meeting,12
+25,DM   ,Auditorium,auditorium,90
+26,DM   ,Meeting Room 1,meeting,12
+27,DM   ,Meeting Room,meeting,12
+28,DO   ,Auditorium,auditorium,74
+29,DO   ,Meeting room A,meeting,18
+30,DO   ,Meeting room B,meeting,22
+31,DU   ,Meeting room,meeting,60
+32,EA   ,Auditorium,auditorium,100
+33,ES   ,Meeting room,meeting,25
+34,EG   ,Meeting room,meeting,43
+35,FV   ,Theatre,theatre,260
+36,FV   ,Meeting Room 1 ,meeting,50
+37,FV   ,Meeting Room 2,meeting,50
+38,FV   ,Meeting Room 3,meeting,96
+39,FV   ,Meeting Room 4,meeting,24
+40,FP   ,Auditorium,auditorium,100
+41,FO   ,Meeting Room,meeting,40
+42,FH   ,Meeting Room,meeting,30
+43,GHP  ,Meeting room,meeting,40
+44,HP   ,Meeting room,meeting,44
+45,HC   ,Meeting room,meeting,50
+46,HIL  ,Auditorium,auditorium,100
+47,HS   ,Auditorium,auditorium,113
+48,HS   ,Meeting room 1,meeting,30
+49,JD   ,Meeting room,meeting,50
+50,JS   ,Meeting room,meeting,36
+51,KE   ,Meeting room,meeting,30
+52,LE   ,Auditorium,auditorium,75
+53,LHS  ,Auditorium BC,auditorium,70
+54,LHS  ,Meeting room A,meeting,30
+55,LO   ,Meeting room,meeting,30
+56,LB   ,Meeting room,meeting,49
+57,MA   ,Meeting room,meeting,30
+58,MAL  ,Auditorium,auditorium,100
+59,MAL  ,Meeting room 1 ,meeting,12
+60,MAS  ,Meeting room A,meeting,60
+61,MAS  ,Meeting room B,meeting,30
+62,MRV  ,Meeting room,meeting,30
+63,MCG  ,Meeting room,meeting,30
+64,MI   ,Auditorium,auditorium,175
+65,MI   ,Meeting room,meeting,16
+66,MS   ,Meeting room,meeting,50
+67,MD   ,Meeting room 1,meeting,50
+68,MD   ,Meeting Room 2,meeting,16
+69,MP   ,Meeting room ,meeting,70
+70,NT   ,Alex J. Faulkner Auditorium,meeting,50
+71,NYCL ,Auditorium,auditorium,203
+72,NYCL ,Meeting Room 1,meeting,87
+73,NYCL ,Meeting Room 2/3,meeting,64
+74,ND   ,Room 224,meeting,89
+75,ND   ,Gwen Liu Meeting Room -Rm. 200,meeting,100
+76,ND   ,Main Fl. Mtg Rm,meeting,48
+77,OV   ,Auditorium,auditorium,120
+78,PM   ,Theatre,theatre,120
+79,PM   ,Meeting room,meeting,25
+80,PA   ,Meeting room,meeting,30
+81,PK   ,Auditorium,auditorium,160
+82,PK   ,Meeting room B,meeting,15
+83,PK   ,Meeting room A,meeting,30
+84,PL   ,Meeting room ,meeting,60
+85,PL   ,Main Fl. Mtg Rm,meeting,25
+86,PE   ,Meeting room,meeting,21
+87,PV   ,Auditorium,auditorium,90
+88,PU   ,Meeting room,meeting,40
+89,RI   ,Meeting room,meeting,40
+90,RI   ,Auditorium,auditorium,48
+91,RD   ,Meeting room,meeting,66
+92,RN   ,Meeting room,meeting,60
+93,SWS  ,Auditorium,auditorium,150
+94,SWS  ,Meeting room,meeting,24
+95,SA   ,Auditorium,auditorium,70
+96,SC   ,Meeting Room,meeting,40
+97,SI   ,Meeting room,meeting,35
+98,ST   ,Meeting room ,meeting,40
+99,TA   ,Meeting room,meeting,40
+100,TH   ,Meeting room ,meeting,42
+101,TRL  ,Room B-1,meeting,15
+102,TRL  ,Beeton East,meeting,65
+103,TRL  ,Beeton West,meeting,80
+104,TRL  ,Beeton Auditorium,auditorium,160
+105,TRL  ,Epic Hall & Prologue,meeting,458
+106,TRL  ,Novella Room,meeting,118
+107,TRL  ,Appel Salon,auditorium,576
+108,VV   ,Barry Burton Auditorium,auditorium,75
+109,WE   ,Meeting room,meeting,40
+110,WS   ,Meeting room,meeting,50
+111,WY   ,Meeting room,meeting,34
+112,YW   ,Theatre,theatre,260
+113,YW   ,Meeting room 1,meeting,23
+114,YW   ,Meeting room 2,meeting,56
+115,YO   ,Meeting Room,meeting,16
+116,MCG  ,Community Room,meeting,25
+117,DP   ,Program Room - Main Floor,meeting,38
+118,DP   ,Program Room - 2nd Floor,meeting,39
+119,PU   ,Multipurpose Room,meeting,38
+120,MD   ,Small Program Room,meeting,28
+121,MAS  ,Meeting Room,meeting,42
+122,MAS  ,Learning Centre,meeting,42
+123,KE   ,Multipurpose Room,meeting,28
+124,BR   ,Program Room,meeting,46
+125,BR   ,Learning Centre,meeting,48
+126,FV   ,Meeting Room 1,meeting,53
+127,FV   ,Learning Centre,meeting,53
+128,FV   ,Leading to Reading Room,meeting,51
+129,ES   ,Program Room,meeting,22
+130,ES   ,Meeting Room 1,meeting,21
+131,PE   ,Program Room,meeting,18
+132,TRL  ,Learning Centre 2,meeting,146
+133,TRL  ,Learning Centre 1,meeting,144
+134,TRL  ,Founders' Room,meeting,146
+135,TRL  ,Discussion Room,meeting,143
+136,WE   ,Community Room,meeting,38
+137,YO   ,Program Room,meeting,11
+138,SWS  ,Learning Centre,meeting,19
+139,FV   ,Fairview Theatre,theatre,257
+140,ST   ,Multipurpose Room,meeting,35
+141,RN   ,Program Room,meeting,57
+142,LHS  ,Learning Centre,meeting,25
+143,PK   ,Puppet Room,meeting,17
+144,PK   ,Program Room,meeting,19
+145,LO   ,Program Room,meeting,25
+146,WY   ,Program Room,meeting,33
+147,WY   ,Children's Program Room,meeting,31
+148,ND   ,Room 200,meeting,77
+149,ND   ,Program Room,meeting,76
+150,CS   ,Program Room,meeting,16
+151,GHP  ,Program Room,meeting,39
+152,WS   ,Program Room,meeting,45
+153,DO   ,Program Room,meeting,18
+154,DM   ,Room 2,meeting,9
+155,YW   ,Theatre Lobby,theatre,256
+156,RI   ,Program Room - 2nd Floor,meeting,37
+157,RI   ,Children's Program Room,meeting,35
+158,PL   ,Story Room,meeting,38
+159,PL   ,Community Room,meeting,41
+160,HP   ,Community Room,meeting,42
+161,ACD  ,Multipurpose Room,meeting,21
+162,ACD  ,Learning Centre,meeting,21
+163,ACD  ,Leading to Reading Room,meeting,22
+164,PA   ,Program Room,meeting,29
+165,LB   ,Program Room,meeting,44
+166,MP   ,Program Room,meeting,68
+167,RD   ,Children's Program Room,meeting,64
+168,RD   ,Adult Program Room,meeting,62
+169,YW   ,Learning Centre,meeting,37
+170,NYCL ,Learning Centre,meeting,71
+171,BE   ,Program Room,meeting,47
+172,DA   ,Program Room,meeting,60
+173,BC   ,Program Room,meeting,20
+174,CE   ,Program Room,meeting,20
+175,AG   ,Program Room,meeting,20
+176,AG   ,Learning Centre,meeting,20
+177,AG   ,Digital Innovation Hub,meeting,20
+178,EG   ,Auditorium,auditorium,60
+179,OV   ,meeting room,meeting,20
+180,BRW  ,Learning Centre,meeting,20
+181,AB   ,Learning Centre,meeting,20
+182,TRL  ,Hinton Learning Theatre,theatre,60
+183,EA   ,Meeting Room,meeting,20
+184,SA   ,Program Room - Main Floor,meeting,20
+185,SA   ,Program Room - Basement,meeting,20
+186,MD   ,Auditorium,auditorium,60
+187,BL   ,Learning Centre,meeting,20
+188,LE   ,Community Room,meeting,20
+189,OV   ,theatre,theatre,60
+190,HIL  ,Program Room,meeting,20
+191,MAS  ,Auditorium,auditorium,60
+192,VV   ,Program Room,meeting,20
+193,QS   ,Program Room - Ralph Thornton Centre,meeting,20
+194,QS   ,Children's Room,meeting,20
+195,BB   ,Auditorium,auditorium,60

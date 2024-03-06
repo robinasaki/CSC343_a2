@@ -1,0 +1,101 @@
+code,name,address,phone,has_parking,ward
+AG   ,Agincourt,155 Bonis Ave,4163968943 ,t,40
+ACD  ,Albert Campbell,496 Birchmount Rd,4163968890 ,t,35
+AB   ,Albion,1515 Albion Rd,4163945170 ,t,1
+AD   ,Alderwood,2 Orianna Dr,4163945310 ,f,6
+AP   ,Amesbury Park,1565 Lawrence Ave W,4163955420 ,t,12
+AN   ,Annette Street,145 Annette St.,4163937692 ,f,13
+AH   ,Armour Heights,2140 Avenue Rd,4163955430 ,f,16
+BF   ,Barbara Frum,20 Covington Rd,4163955440 ,t,15
+BY   ,Bayview,2901 Bayview Ave,4163955460 ,f,24
+BE   ,Beaches,2161 Queen St E,4163937703 ,f,32
+BD   ,Bendale,1515 Danforth Rd,4163968910 ,t,38
+BC   ,Black Creek,"1700 Wilson Ave, Unit 63-64",4163955470 ,f,7
+BL   ,Bloor Gladstone,1101 Bloor St W,4163937674 ,f,18
+BR   ,Brentwood,36 Brentwood Rd N,4163945240 ,f,5
+BRW  ,Bridlewood,2900 Warden Ave,4163968960 ,f,39
+BB   ,Brookbanks,210 Brookbanks Dr,4163955480 ,t,34
+BUR  ,Burrows Hall,1081 Progress Ave,4163968740 ,f,42
+CED  ,Cedarbrae,545 Markham Rd,4163968850 ,t,43
+CE   ,Centennial,578 Finch Ave W,4163955490 ,t,10
+CH   ,City Hall,100 Queen St W,4163937650 ,f,27
+CC   ,Cliffcrest,3017 Kingston Rd,4163968916 ,f,36
+CS   ,College Shaw,766 College St,4163937668 ,f,19
+DA   ,Danforth Coxwell,1675 Danforth Ave,4163937783 ,t,32
+DT   ,Davenport,1246 Shaw St,4163937732 ,f,21
+DR   ,Dawes Road,416 Dawes Rd,4163963820 ,f,31
+DP   ,Deer Park,40 St. Clair Ave E,4163937657 ,f,22
+DM   ,Don Mills,888 Lawrence Ave E,4163955710 ,t,25
+DO   ,Downsview,2793 Keele St,4163955720 ,t,9
+DU   ,Dufferin St. Clair,1625 Dufferin St,4163937712 ,f,17
+EA   ,Eatonville,430 Burnhamthorpe Rd,4163945270 ,t,5
+ES   ,Eglinton Square,"1 Eglinton Sq, Unit 126",4163968920 ,f,35
+EB   ,Elmbrook Park,2 Elmbrook Cr,4163945290 ,t,3
+EG   ,Evelyn Gregory,120 Trowell Ave,4163941006 ,t,12
+FV   ,Fairview,35 Fairview Mall Dr,4163955750 ,t,33
+FP   ,Flemingdon Park,29 St. Dennis Dr,4163955820 ,f,26
+FH   ,Forest Hill,700 Eglinton Ave W,4163937706 ,f,21
+FO   ,Fort York,190 Fort York Blvd,4163936240 ,f,20
+GE   ,Gerrard Ashdale,1432 Gerrard St E,4163937717 ,t,30
+GHP  ,Goldhawk Park,295 Alton Towers Cir,4163968964 ,t,41
+GW   ,Guildwood,123 Guildwood Pkwy,4163968872 ,f,43
+HP   ,High Park,228 Roncesvalles Ave,4163937671 ,f,14
+HC   ,Highland Creek,3550 Ellesmere Rd,4163968876 ,t,44
+HIL  ,Hillcrest,5801 Leslie St,4163955830 ,t,24
+HB   ,Humber Bay,200 Park Lawn Rd,4163945300 ,t,5
+HS   ,Humber Summit,2990 Islington Ave,4163955840 ,t,7
+HW   ,Humberwood,850 Humberwood Blvd,4163945210 ,f,2
+JD   ,Jane Dundas,620 Jane St,4163941014 ,t,13
+JS   ,Jane Sheppard,1906 Sheppard Ave West,4163955966 ,t,9
+JO   ,Jones,118 Jones Ave,4163937715 ,t,30
+KE   ,Kennedy Eglinton,2380 Eglinton Ave E,4163968924 ,f,37
+LE   ,Leaside,165 McRae Dr,4163963835 ,f,26
+LHS  ,Lillian H. Smith,239 College St,4163937746 ,f,20
+LO   ,Locke,3083 Yonge St,4163937730 ,t,25
+LB   ,Long Branch,3500 Lakeshore Blvd W,4163945320 ,t,6
+MA   ,Main Street,137 Main St,4163937700 ,t,32
+MAL  ,Malvern,30 Sewells Rd,4163968969 ,f,42
+MAS  ,Maria A. Shchuka,1745 Eglinton Ave W,4163941000 ,t,15
+MRV  ,Maryvale,85 Ellesmere Rd,4163968931 ,f,37
+MCG  ,McGregor Park,2219 Lawrence Ave E,4163968935 ,t,37
+MI   ,Mimico Centennial,47 Station Rd,4163945330 ,t,6
+MS   ,Morningside,4279 Lawrence Ave E,4163968881 ,f,44
+MD   ,Mount Dennis,1123 Weston Rd,4163941008 ,t,11
+MP   ,Mount Pleasant,599 Mt. Pleasant Rd,4163937737 ,f,22
+NT   ,New Toronto,110 Eleventh St,4163945350 ,t,6
+NYCL ,North York Central,5120 Yonge St,4163955535 ,f,23
+ND   ,Northern District,40 Orchard View Blvd,4163937610 ,f,16
+NE   ,Northern Elms,"123 B Rexdale Blvd, Unit 5",4163945230 ,f,2
+OV   ,Oakwood Village Library and Arts Centre,341 Oakwood Ave,4163941040 ,f,15
+PM   ,Palmerston,560 Palmerston Ave,4163937680 ,f,20
+PA   ,Pape Danforth,701 Pape Ave,4163937727 ,f,30
+PK   ,Parkdale,1303 Queen St W,4163937686 ,f,14
+PL   ,Parliament Street,269 Gerrard St E,4163937663 ,f,28
+PE   ,Perth Dupont,1589 Dupont St,4163937677 ,f,18
+PV   ,Pleasant View,575 Van Horne Ave,4163955940 ,t,33
+PU   ,Port Union,5450 Lawrence Ave E,4163968885 ,f,44
+QS   ,Queen Saulter,765 Queen St E,4163937723 ,f,30
+RX   ,Rexdale,2243 Kipling Ave,4163945200 ,t,2
+RI   ,Richview,1806 Islington Ave,4163945120 ,t,4
+RD   ,Riverdale,370 Broadview Ave,4163937720 ,f,30
+RN   ,Runnymede,2178 Bloor St W,4163937697 ,f,13
+SWS  ,S. Walter Stewart,170 Memorial Park Ave,4163963975 ,t,29
+SA   ,Sanderson,327 Bathurst St,4163937653 ,f,20
+SC   ,Scarborough Civic Centre,150 Borough Dr,4163963599 ,f,38
+SP   ,Spadina Road,10 Spadina Rd,4163937655 ,f,20
+SI   ,St. Clair Silverthorn,1748 St. Clair Ave W,4163937709 ,f,17
+SJ   ,St. James Town,495 Sherbourne St,4163937744 ,f,28
+SL   ,St. Lawrence,171 Front St E,4163937655 ,f,28
+ST   ,Steeles,"375 Bamburgh Circle, C107",4163968975 ,f,39
+SW   ,Swansea Memorial,95 Lavinia Ave,4163937695 ,f,13
+TA   ,Taylor Memorial,1440 Kingston Rd,4163968939 ,t,36
+TH   ,Thorncliffe,48 Thorncliffe Park Dr,4163963865 ,f,26
+TOD  ,Todmorden Room,1081½ Pape Ave,4163963875 ,f,29
+TRL  ,Toronto Reference Library,789 Yonge St,4163955577 ,f,27
+VV   ,Victoria Village,184 Sloane Ave,4163955950 ,t,34
+WE   ,Weston,2 King St,4163941016 ,t,11
+WS   ,Woodside Square,1571 Sandhurst Cir,4163968979 ,f,41
+WP   ,Woodview Park,16 Bradstock Rd,4163955960 ,f,7
+WY   ,Wychwood,1431 Bathurst St,4163937683 ,f,21
+YW   ,York Woods,1785 Finch Ave W,4163955980 ,t,8
+YO   ,Yorkville,22 Yorkville Ave,4163937660 ,f,27
