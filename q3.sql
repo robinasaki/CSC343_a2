@@ -265,10 +265,13 @@ CREATE VIEW allPatrons AS
     ) a;
 
 CREATE VIEW completeCategories AS
-    SELECT allPatrons.patron, categories.category
-    FROM categories 
-    FULL OUTER JOIN allPatrons
-    ON categories.patron = allPatrons.patron;
+    SELECT patron, category
+    from categories;
+
+    -- SELECT allPatrons.patron, categories.category
+    -- FROM categories 
+    -- FULL OUTER JOIN allPatrons
+    -- ON categories.patron = allPatrons.patron;
 
 -- Your query that answers the question goes below the "insert into" line:
 INSERT INTO q3 (patronid, category)
