@@ -24,19 +24,17 @@ DROP VIEW IF EXISTS totalSignups CASCADE;
 DROP VIEW IF EXISTS patronBookCheckouts CASCADE;
 DROP VIEW IF EXISTS totalCheckouts CASCADE;
 DROP VIEW IF EXISTS librariesUsed CASCADE;
+DROP VIEW IF EXISTS usedBookCheckout CASCADE;
+DROP VIEW IF EXISTS usedSignUp CASCADE;
 
-DROP VIEW IF EXISTS lowEventUsageWithoutNonExistent CASCADE;
 DROP VIEW IF EXISTS lowEventsUsage CASCADE;
 DROP VIEW IF EXISTS highEventsUsage CASCADE;
 
-DROP VIEW IF EXISTS lowCheckoutUsageWithoutNonExistent CASCADE;
 DROP VIEW IF EXISTS lowCheckoutUsage CASCADE;
 DROP VIEW IF EXISTS highCheckoutUsage CASCADE;
 DROP VIEW IF EXISTS categories CASCADE;
 
-DROP VIEW IF EXISTS allPatrons CASCADE;
 DROP VIEW IF EXISTS completeCategories CASCADE;
-
 
 CREATE VIEW allLibPatrons AS
     SELECT card_number AS patron
@@ -70,162 +68,96 @@ CREATE VIEW librariesUsed AS
         UNION
         SELECT patron, library FROM patronBookCheckouts
     ) a;
-    -- FROM patronEventSignups JOIN patronBookCheckouts ON (patronEventSignups.patron = patronBookCheckouts.patron 
-    --     AND patronEventSignups.library = patronBookCheckouts.library);
 
-CREATE VIEW lowEventUsageWithoutNonExistent AS
-    SELECT a.patron, 'low' AS attendance 
-    FROM totalSignups a
-    WHERE NOT EXISTS (
-        SELECT b.patron
-        FROM totalSignups b
-        WHERE EXISTS (
-            -- Find the patrons who have attended an event at any of the original patron's used libraries
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = a.patron
-            INTERSECT
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = b.patron
-        )
-    ) 
-    OR a.numEvents < 0.25 * (
+CREATE VIEW usedSignUp AS
+    SELECT DISTINCT patron, library
+    FROM patronEventSignups;
+
+CREATE VIEW usedBookCheckout AS
+    SELECT DISTINCT patron, library
+    FROM patronBookCheckouts;
+
+CREATE VIEW lowEventsUsage AS
+    SELECT a1.patron, 'low' AS attendance
+    FROM allLibPatrons a1
+    FULL OUTER JOIN totalSignups a2 ON a1.patron = a2.patron
+    WHERE a2.numEvents IS NULL
+    OR a2.numEvents < 0.25 * (
         SELECT avg(b.numEvents)
         FROM totalSignups b
         WHERE EXISTS (
             -- Find the patrons who have attended an event at any of the original patron's used libraries
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = a.patron
+            SELECT DISTINCT library
+            FROM usedSignUp
+            WHERE usedSignUp.patron = a2.patron
             INTERSECT
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = b.patron
+            SELECT DISTINCT library
+            FROM usedSignUp
+            WHERE usedSignUp.patron = b.patron
         )
     );
-
-
-CREATE VIEW lowEventsUsage AS
-    SELECT * 
-    FROM (
-        SELECT patron, attendance FROM lowEventUsageWithoutNonExistent
-        UNION
-        SELECT allLibPatrons.patron, 'low' AS attendance
-        FROM allLibPatrons 
-        WHERE allLibPatrons.patron IN (SELECT patron FROM librariesUsed)
-        AND allLibPatrons.patron NOT IN (SELECT patron FROM totalSignups)
-        AND NOT EXISTS (
-            SELECT b.patron
-            FROM totalSignups b
-            WHERE EXISTS (
-                -- Find the patrons who have attended an event at any of the original patron's used libraries
-                SELECT library
-                FROM librariesUsed
-                WHERE librariesUsed.patron = allLibPatrons.patron
-                INTERSECT
-                SELECT library
-                FROM librariesUsed
-                WHERE librariesUsed.patron = b.patron
-            )
-        )
-    ) a;
 
 CREATE VIEW highEventsUsage AS
     SELECT a.patron, 'high' AS attendance 
     FROM totalSignups a
-    WHERE a.patron NOT IN (
-        SELECT lowEventsUsage.patron 
-        FROM lowEventsUsage
-    ) AND a.numEvents > 0.75 * (
+    -- WHERE a.patron NOT IN (
+    --     SELECT lowEventsUsage.patron 
+    --     FROM lowEventsUsage
+    -- ) AND a.numEvents > 0.75 * (
+    WHERE a.numEvents > 0.75 * (
         SELECT avg(b.numEvents)
         FROM totalSignups b
         WHERE EXISTS (
             -- Find the patrons who have attended an event at any of the original patron's used libraries
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = a.patron
+            SELECT DISTINCT library
+            FROM usedSignUp
+            WHERE usedSignUp.patron = a.patron
             INTERSECT
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = b.patron
-        )
-    );
-
-CREATE VIEW lowCheckoutUsageWithoutNonExistent AS
-    SELECT a.patron, 'low' AS checkouts 
-    FROM totalCheckouts a
-    WHERE NOT EXISTS (
-        SELECT b.patron
-        FROM totalCheckouts b
-        WHERE EXISTS (
-            -- Find the patrons who have attended an event at any of the original patron's used libraries
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = a.patron
-            INTERSECT
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = b.patron
-        )
-    ) OR a.numCheckouts < 0.25 * (
-        SELECT avg(b.numCheckouts)
-        FROM totalCheckouts b
-        WHERE EXISTS (
-            -- Find the patrons who have attended an event at any of the original patron's used libraries
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = a.patron
-            INTERSECT
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = b.patron
+            SELECT DISTINCT library
+            FROM usedSignUp
+            WHERE usedSignUp.patron = b.patron
         )
     );
 
 CREATE VIEW lowCheckoutUsage AS
-    SELECT * 
-    FROM (
-        SELECT patron, checkouts FROM lowCheckoutUsageWithoutNonExistent
-        UNION
-        SELECT patron, 'low' AS checkouts
-        FROM allLibPatrons
-        WHERE patron IN (SELECT patron FROM librariesUsed)
-        AND patron NOT IN (SELECT patron FROM totalCheckouts)
-        AND NOT EXISTS (
-            SELECT b.patron
-            FROM totalCheckouts b
-            WHERE EXISTS (
-                -- Find the patrons who have attended an event at any of the original patron's used libraries
-                SELECT library
-                FROM librariesUsed
-                WHERE librariesUsed.patron = allLibPatrons.patron
-                INTERSECT
-                SELECT library
-                FROM librariesUsed
-                WHERE librariesUsed.patron = b.patron
-            )
-        )
-    ) a;
-
-CREATE VIEW highCheckoutUsage AS
-    SELECT a.patron, 'high' AS checkouts 
-    FROM totalCheckouts a
-    WHERE a.patron NOT IN (
-        SELECT lowCheckoutUsage.patron 
-        FROM lowCheckoutUsage
-    ) AND a.numCheckouts > 0.75 * (
+    SELECT a1.patron, 'low' AS checkouts
+    FROM allLibPatrons a1
+    FULL OUTER JOIN totalCheckouts a2 ON a1.patron = a2.patron
+    WHERE a2.numCheckouts IS NULL
+    OR a2.numCheckouts < 0.25 * (
         SELECT avg(b.numCheckouts)
         FROM totalCheckouts b
         WHERE EXISTS (
             -- Find the patrons who have attended an event at any of the original patron's used libraries
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = a.patron
+            SELECT DISTINCT library
+            FROM usedBookCheckout
+            WHERE usedBookCheckout.patron = a2.patron
             INTERSECT
-            SELECT library
-            FROM librariesUsed
-            WHERE librariesUsed.patron = b.patron
+            SELECT DISTINCT library
+            FROM usedBookCheckout
+            WHERE usedBookCheckout.patron = b.patron
+        )
+    );
+
+CREATE VIEW highCheckoutUsage AS
+    SELECT a.patron, 'high' AS checkouts 
+    FROM totalCheckouts a
+    -- WHERE a.patron NOT IN (
+    --     SELECT lowCheckoutUsage.patron 
+    --     FROM lowCheckoutUsage
+    -- ) AND
+    WHERE a.numCheckouts > 0.75 * (
+        SELECT avg(b.numCheckouts)
+        FROM totalCheckouts b
+        WHERE EXISTS (
+            -- Find the patrons who have attended an event at any of the original patron's used libraries
+            SELECT DISTINCT library
+            FROM usedBookCheckout
+            WHERE usedBookCheckout.patron = a.patron
+            INTERSECT
+            SELECT DISTINCT library
+            FROM usedBookCheckout
+            WHERE usedBookCheckout.patron = b.patron
         )
     );
 
@@ -250,28 +182,11 @@ CREATE VIEW categories AS
             SELECT * FROM highCheckoutUsage
         ) b
         ON a.patron = b.patron
-        -- ((SELECT * FROM lowEventsUsage) UNION (SELECT * FROM highEventsUsage)) a
-        -- JOIN
-        -- ((SELECT * FROM lowCheckoutUsage) UNION (SELECT * FROM highCheckoutUsage)) b
-        -- ON a.patron = b.patron
     );
-
-CREATE VIEW allPatrons AS
-    SELECT DISTINCT patron
-    FROM (
-        SELECT patron FROM totalSignups
-        UNION
-        SELECT patron FROM totalCheckouts
-    ) a;
 
 CREATE VIEW completeCategories AS
     SELECT patron, category
     from categories;
-
-    -- SELECT allPatrons.patron, categories.category
-    -- FROM categories 
-    -- FULL OUTER JOIN allPatrons
-    -- ON categories.patron = allPatrons.patron;
 
 -- Your query that answers the question goes below the "insert into" line:
 INSERT INTO q3 (patronid, category)
