@@ -148,12 +148,14 @@ class Library:
         """
         cursor = self.connection.cursor()
 
+        res = False
+
         try:
             # Determine if event ID is valid
             cursor.execute("""
                 SELECT LibraryEvent.id
                 FROM LibraryEvent
-                WHERE LibraryEvent.id = %d;
+                WHERE LibraryEvent.id = %s;
             """, [event_id])
 
             if len(cursor.fetchall()) == 0:
@@ -173,23 +175,35 @@ class Library:
             cursor.execute("""
                 SELECT *
                 FROM EventSignup
-                WHERE patron = %s AND event = %d;
+                WHERE patron = %s AND event = %s;
             """, [card_number, event_id])
 
-            if len(cursor.fetchall()) == 0:
+            if len(cursor.fetchall()) != 0:
                 return False
+
             
+            currentEventDetails = {}
+            cursor.execute("""
+                SELECT LibraryEvent.id, EventSchedule.edate, EventSchedule.start_time, EventSchedule.end_time
+                FROM LibraryEvent 
+                JOIN EventSchedule ON EventSchedule.event = LibraryEvent.id
+                WHERE LibraryEvent.id = %s;         
+            """, [event_id])
+
+            for record in cursor:
+                currentEventDetails["date"] = record[1]
+                currentEventDetails["start_time"] = record[2]
+                currentEventDetails["end_time"] = record[3]
+
             # Determine if patron has signed up for overlapping
             # events; get list of all events they've signed up for
-            currentEventDetails = {}
-            allPatronEventDetails = ()
-
             cursor.execute("""
                 SELECT EventSignup.event, EventSchedule.edate, EventSchedule.start_time, EventSchedule.end_time
                 FROM EventSignup 
-                JOIN EventSchedule ON EventSchedule.event = EventSignup.id
-                WHERE EventSignup.patron = %s;
-            """, [card_number])
+                JOIN EventSchedule ON EventSchedule.event = EventSignup.event
+                WHERE EventSignup.patron = %s
+                AND EventSignup.event <> %s;
+            """, [card_number, event_id])
 
             # for record in cursor:
             #     if record[0] == event_id:
@@ -198,18 +212,30 @@ class Library:
             #         currentEventDetails.end_time = record[3]
             
             # Check if event overlaps with desired event
-            # NEED TO GET DATA ON DESIRED EVENT TIMES
+            # General logic for determining if dates overlap 
             for record in cursor:
-                if record[0] != event_id:
-                    print("CHECK HERE")
+                if record[1] == currentEventDetails["date"] \
+                    and record[2] < currentEventDetails["end_time"] \
+                    and record[3] > currentEventDetails["start_time"]:
+                    return False
+                
+            cursor.execute("""
+                INSERT INTO EventSignup
+                VALUES (%s, %s);            
+            """, [card_number, event_id])
+            
+            if "INSERT" in cursor.statusmessage:
+                cursor.close()
+                res = True
+                # return True # function was continuing after reaching this return statement!!! Why???
 
-
-
-        except:
+        except Exception as e:
             self.connection.rollback()
+            res = False
 
         finally:
             cursor.close()
+            return res
         
 
     def return_item(self, checkout: int) -> float:
@@ -291,12 +317,15 @@ def test_preliminary() -> None:
         assert not registered, "[Register] Invalid card number, valid " \
                                "event id: should return False. " \
                                f"Returned {registered}"
+        
+        
         # Valid card number, Invalid event id
         # You should also check that no modifications were made to the db
         registered = a2.register("5309015788", 200)
         assert not registered, "[Register] Valid card number, Invalid " \
                                "event id: should return False. " \
                                f"Returned {registered}"
+        
         # Valid card number and event id
         # You should also check that the following row has been added to
         # the EventSignup relation:
