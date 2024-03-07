@@ -115,8 +115,8 @@ class Library:
                 JOIN LibraryBranch ON LibraryBranch.code = LibraryCatalogue.library
                 JOIN HoldingContributor ON Holding.id = HoldingContributor.holding
                 JOIN Contributor ON HoldingContributor.contributor = Contributor.id
-                WHERE LibraryBranch.code = '%s'
-                AND Contributor.last_name = '%s'
+                WHERE LibraryBranch.code = %s
+                AND Contributor.last_name = %s;
             """, [branch, last_name])
 
             for record in cursor:
@@ -146,7 +146,70 @@ class Library:
         Return True if the operation was successful (as per the above criteria),
         and False otherwise. Your method must NOT throw an error.
         """
-        
+        cursor = self.connection.cursor()
+
+        try:
+            # Determine if event ID is valid
+            cursor.execute("""
+                SELECT LibraryEvent.id
+                FROM LibraryEvent
+                WHERE LibraryEvent.id = %d;
+            """, [event_id])
+
+            if len(cursor.fetchall()) == 0:
+                return False
+            
+            # DEtermine if card number is valid
+            cursor.execute("""
+                SELECT Patron.card_number
+                FROM Patron
+                WHERE Patron.card_number = %s;       
+            """, [card_number])
+
+            if len(cursor.fetchall()) == 0:
+                return False
+            
+            # Determine if patron is already signed up for the event
+            cursor.execute("""
+                SELECT *
+                FROM EventSignup
+                WHERE patron = %s AND event = %d;
+            """, [card_number, event_id])
+
+            if len(cursor.fetchall()) == 0:
+                return False
+            
+            # Determine if patron has signed up for overlapping
+            # events; get list of all events they've signed up for
+            currentEventDetails = {}
+            allPatronEventDetails = ()
+
+            cursor.execute("""
+                SELECT EventSignup.event, EventSchedule.edate, EventSchedule.start_time, EventSchedule.end_time
+                FROM EventSignup 
+                JOIN EventSchedule ON EventSchedule.event = EventSignup.id
+                WHERE EventSignup.patron = %s;
+            """, [card_number])
+
+            # for record in cursor:
+            #     if record[0] == event_id:
+            #         currentEventDetails.date = record[1]
+            #         currentEventDetails.start_time = record[2]
+            #         currentEventDetails.end_time = record[3]
+            
+            # Check if event overlaps with desired event
+            # NEED TO GET DATA ON DESIRED EVENT TIMES
+            for record in cursor:
+                if record[0] != event_id:
+                    print("CHECK HERE")
+
+
+
+        except:
+            self.connection.rollback()
+
+        finally:
+            cursor.close()
         
 
     def return_item(self, checkout: int) -> float:
@@ -188,8 +251,8 @@ def test_preliminary() -> None:
     """
     # TODO: Change the values of the following variables to connect to your
     #  own database:
-    dbname = "csc343h-userid"
-    user = "userid"
+    dbname = ""
+    user = ""
     password = ""
 
     a2 = Library()
