@@ -88,8 +88,8 @@ CREATE VIEW lowEventsUsage AS
         WHERE EXISTS (
             -- Find the patrons who have attended an event at any of the original patron's used libraries
             SELECT DISTINCT library
-            FROM usedSignUp
-            WHERE usedSignUp.patron = a2.patron
+            FROM librariesUsed
+            WHERE librariesUsed.patron = a2.patron
             INTERSECT
             SELECT DISTINCT library
             FROM usedSignUp
@@ -100,24 +100,24 @@ CREATE VIEW lowEventsUsage AS
 CREATE VIEW highEventsUsage AS
     SELECT a.patron, 'high' AS attendance 
     FROM totalSignups a
-    -- WHERE a.patron NOT IN (
-    --     SELECT lowEventsUsage.patron 
-    --     FROM lowEventsUsage
-    -- ) AND a.numEvents > 0.75 * (
-    WHERE a.numEvents > 0.75 * (
+    WHERE a.patron NOT IN (
+        SELECT lowEventsUsage.patron 
+        FROM lowEventsUsage
+    ) AND a.numEvents > 0.75 * (
         SELECT avg(b.numEvents)
         FROM totalSignups b
         WHERE EXISTS (
             -- Find the patrons who have attended an event at any of the original patron's used libraries
             SELECT DISTINCT library
-            FROM usedSignUp
-            WHERE usedSignUp.patron = a.patron
+            FROM librariesUsed
+            WHERE librariesUsed.patron = a.patron
             INTERSECT
             SELECT DISTINCT library
             FROM usedSignUp
             WHERE usedSignUp.patron = b.patron
         )
     );
+
 
 CREATE VIEW lowCheckoutUsage AS
     SELECT a1.patron, 'low' AS checkouts
@@ -130,8 +130,8 @@ CREATE VIEW lowCheckoutUsage AS
         WHERE EXISTS (
             -- Find the patrons who have attended an event at any of the original patron's used libraries
             SELECT DISTINCT library
-            FROM usedBookCheckout
-            WHERE usedBookCheckout.patron = a2.patron
+            FROM librariesUsed
+            WHERE librariesUsed.patron = a2.patron
             INTERSECT
             SELECT DISTINCT library
             FROM usedBookCheckout
@@ -142,18 +142,17 @@ CREATE VIEW lowCheckoutUsage AS
 CREATE VIEW highCheckoutUsage AS
     SELECT a.patron, 'high' AS checkouts 
     FROM totalCheckouts a
-    -- WHERE a.patron NOT IN (
-    --     SELECT lowCheckoutUsage.patron 
-    --     FROM lowCheckoutUsage
-    -- ) AND
-    WHERE a.numCheckouts > 0.75 * (
+    WHERE a.patron NOT IN (
+        SELECT lowCheckoutUsage.patron 
+        FROM lowCheckoutUsage
+    ) AND a.numCheckouts > 0.75 * (
         SELECT avg(b.numCheckouts)
         FROM totalCheckouts b
         WHERE EXISTS (
             -- Find the patrons who have attended an event at any of the original patron's used libraries
             SELECT DISTINCT library
-            FROM usedBookCheckout
-            WHERE usedBookCheckout.patron = a.patron
+            FROM librariesUsed
+            WHERE librariesUsed.patron = a.patron
             INTERSECT
             SELECT DISTINCT library
             FROM usedBookCheckout
