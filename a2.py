@@ -181,7 +181,7 @@ class Library:
             if len(cursor.fetchall()) != 0:
                 return False
 
-            
+            # Get date/time details of event to register in
             currentEventDetails = {}
             cursor.execute("""
                 SELECT LibraryEvent.id, EventSchedule.edate, EventSchedule.start_time, EventSchedule.end_time
@@ -204,31 +204,26 @@ class Library:
                 WHERE EventSignup.patron = %s
                 AND EventSignup.event <> %s;
             """, [card_number, event_id])
-
-            # for record in cursor:
-            #     if record[0] == event_id:
-            #         currentEventDetails.date = record[1]
-            #         currentEventDetails.start_time = record[2]
-            #         currentEventDetails.end_time = record[3]
             
             # Check if event overlaps with desired event
-            # General logic for determining if dates overlap 
             for record in cursor:
                 if record[1] == currentEventDetails["date"] \
                     and record[2] < currentEventDetails["end_time"] \
                     and record[3] > currentEventDetails["start_time"]:
                     return False
-                
+            
+            # Everything checks out; sign the patron up
             cursor.execute("""
                 INSERT INTO EventSignup
                 VALUES (%s, %s);            
             """, [card_number, event_id])
             
             if "INSERT" in cursor.statusmessage:
-                cursor.close()
+                # cursor.close()
                 res = True
                 # return True # function was continuing after reaching this return statement!!! Why???
-
+            else:
+                res = False
         except Exception as e:
             self.connection.rollback()
             res = False
